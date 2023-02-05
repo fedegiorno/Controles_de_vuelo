@@ -88,7 +88,6 @@ class FedeBT(val context: Context) {
 
     companion object {
         private const val BLUETOOTH_PERMISSION_REQUEST_CODE = 9999
-
     }
 
     fun stateBluetoooth() = btAdapter.isEnabled
