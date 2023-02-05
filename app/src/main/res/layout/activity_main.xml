@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonSend"
-            android:text="Send A"
+            android:text="@string/enviar_por_bt"
             android:layout_gravity="center"
             android:layout_marginTop="10dp" >
         </Button>

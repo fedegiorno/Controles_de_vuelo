@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Controles de vuelo</string>
+    <string name="enviar_por_bt">Enviar por BT</string>
 </resources>
