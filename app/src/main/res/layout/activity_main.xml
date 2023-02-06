@@ -2,7 +2,6 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,41 +14,5 @@
         android:id="@+id/listDeviceBluetooth"
         android:visibility="visible" >
     </ListView>
-
-    <!--    Aca tengo que colocar el xml del canvas -->
-    <!--    buscar el xml en el TestCanvas.xml -->
-
-    <!--    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/viewConn"
-        android:visibility="gone" >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edtTx"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp" >
-        </EditText>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonSend"
-            android:text="@string/enviar_por_bt"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp" >
-        </Button>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:id="@+id/consola" >
-        </TextView>
-
-    </LinearLayout> -->
 
 </LinearLayout>

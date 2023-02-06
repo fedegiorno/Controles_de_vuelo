@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
-import com.fedegiorno.controlesdevuelo.databinding.ActivityAeroControlesBinding
 
 const val MAX_RADIO: Int = 360
 const val AMPLITUD_ALERON: Int = 30
@@ -102,10 +101,8 @@ class AeroControles : AppCompatActivity() {
             val ancho = width
             val alto = height
 
-            if (canvas != null) {
-                canvas.drawPaint(paint)
-            }
-            paint.setColor(Color.BLACK)
+            canvas?.drawPaint(paint)
+            paint.color = Color.BLACK
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = 4f
             paint.color = Color.GREEN
@@ -120,22 +117,18 @@ class AeroControles : AppCompatActivity() {
             }
 
             //cuadrantes
-            if (canvas != null) {
-                canvas.drawLine(cx- MAX_RADIO,cy,cx + MAX_RADIO,cy,paint)
-            }
-            if (canvas != null) {
-                canvas.drawLine(cx,cy- MAX_RADIO,cx,cy + MAX_RADIO,paint)
-            }
+            canvas?.drawLine(cx- MAX_RADIO,cy,cx + MAX_RADIO,cy,paint)
+            canvas?.drawLine(cx,cy- MAX_RADIO,cx,cy + MAX_RADIO,paint)
 
             //timon
             paint.style = Paint.Style.FILL
             paint.color = Color.YELLOW
-            var dx = MAX_RADIO*Math.abs(relX).div(amplitud).toFloat()
-            var dy = MAX_RADIO*Math.abs(relY).div(amplitud).toFloat()
+            val dx = MAX_RADIO*Math.abs(relX).div(amplitud).toFloat()
+            val dy = MAX_RADIO*Math.abs(relY).div(amplitud).toFloat()
 
             when (accion) {
                 "DOWN" -> {
-                    Log.i("KIRCHOFFF", "Cuadrante " + cuadrante)
+                    Log.i(TAG, "Cuadrante " + cuadrante)
                     paint.color = Color.GREEN
 
                     if (amplitud >= MAX_RADIO){
@@ -158,10 +151,8 @@ class AeroControles : AppCompatActivity() {
                             }
                         }
                     }
-                    if (canvas != null) {
-                        canvas.drawCircle(dX, dY, TIMON, paint)
-                    }
-                    Log.i("KIRCHOFFF", "DOWN")
+                    canvas?.drawCircle(dX, dY, TIMON, paint)
+                    Log.i(TAG, "DOWN")
                     transmitirMovimiento(relX,relY)
                 }
                 "MOVE" -> {
@@ -186,40 +177,24 @@ class AeroControles : AppCompatActivity() {
                             }
                         }
                     }
-                    if (canvas != null) {
-                        canvas.drawCircle(dX, dY, TIMON, paint)
-                    }
-                    Log.i("KIRCHOFFF", "MOVE")
+                    canvas?.drawCircle(dX, dY, TIMON, paint)
+                    Log.i(TAG, "MOVE")
                     transmitirMovimiento(relX,relY)
                 }
                 "UP" -> {
                     paint.color = Color.YELLOW
                     Thread.sleep(500)
-                    if (canvas != null) {
-                        canvas.drawCircle(cx, cy, TIMON, paint)
-                    }
-                    Log.i("KIRCHOFFF", "UP")
+                    canvas?.drawCircle(cx, cy, TIMON, paint)
+                    Log.i(TAG, "UP")
                     transmitirMovimiento(0f,0f)
                 }
                 else  -> {
                     Thread.sleep(500)
-                    if (canvas != null) {
-                        canvas.drawCircle(cx, cy, TIMON, paint)
-                    }
-                    Log.i("KIRCHOFFF", "ELSE")
+                    canvas?.drawCircle(cx, cy, TIMON, paint)
+                    Log.i(TAG, "ELSE")
                 }
             }
         } /** fin del onDraw() **/
-
-        private fun calcularAbsY(relY: Float): Float {
-            dY = relY + cy
-            return dY
-        }
-
-        private fun calcularAbsX(relX: Float): Float {
-            dX = relX + cx
-            return dX
-        }
 
         override fun onTouchEvent(e: MotionEvent): Boolean {
             dX = e.x
@@ -228,9 +203,10 @@ class AeroControles : AppCompatActivity() {
             relY = cy - dY
             amplitud = Math.sqrt(Math.pow(dY.toDouble()-cy.toDouble(),2.0)+Math.pow(dX.toDouble()-cx.toDouble(),2.0))
 
-            //Log.i("KIRCHOFFF", "Punto absoluto X = " + dX + " Y = " + dY)
-            //Log.i("KIRCHOFFF", amplitud.toString())
+            //Log.i(TAG, "Punto absoluto X = " + dX + " Y = " + dY)
+            //Log.i(TAG, amplitud.toString())
 
+            performClick()
             if ((relX >= 0) && (relY >= 0)) {cuadrante = 1
             } else {
                 if ((relX <= 0) && (relY >= 0)) {cuadrante = 2
@@ -241,7 +217,7 @@ class AeroControles : AppCompatActivity() {
                     }
                 }
             }
-            //Log.i("KIRCHOFFF", "Cuadrante " + cuadrante.toString())
+            //Log.i(TAG, "Cuadrante " + cuadrante.toString())
 
             when(e.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -261,10 +237,14 @@ class AeroControles : AppCompatActivity() {
             return true
         }
 
+        override fun performClick(): Boolean {
+            return super.performClick()
+        }
+
     }
     private fun transmitirMovimiento(relX: Float, relY: Float) {
-        var X = 0f
-        var Y = 0f
+        val X: Float
+        val Y: Float
 
         //Alerones
         if (relX >= 0) {
@@ -303,6 +283,4 @@ class AeroControles : AppCompatActivity() {
         BT.bluTx("@" + X.toString())    //inclinacion alerones
         BT.bluTx("#" + Y.toString())    //inclinacion timon profundidad
     }
-
-
 }
