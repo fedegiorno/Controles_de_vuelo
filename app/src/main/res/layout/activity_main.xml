@@ -16,7 +16,10 @@
         android:visibility="visible" >
     </ListView>
 
-    <LinearLayout
+    <!--    Aca tengo que colocar el xml del canvas -->
+    <!--    buscar el xml en el TestCanvas.xml -->
+
+    <!--    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -47,6 +50,6 @@
             android:id="@+id/consola" >
         </TextView>
 
-    </LinearLayout>
+    </LinearLayout> -->
 
 </LinearLayout>

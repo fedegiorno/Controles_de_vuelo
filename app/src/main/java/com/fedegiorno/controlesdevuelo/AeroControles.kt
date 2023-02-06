@@ -1,26 +1,34 @@
 package com.fedegiorno.controlesdevuelo
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
+import android.view.View
 import android.widget.Toast
 import com.fedegiorno.controlesdevuelo.databinding.ActivityAeroControlesBinding
 
-
-//const val MAX_RADIO: Int = 500
-
+const val MAX_RADIO: Int = 400
+const val TIMON: Float = 70f
 class AeroControles : AppCompatActivity() {
 
     var dirBT = ""
-    lateinit var aeroControlesBinding: ActivityAeroControlesBinding
+    //lateinit var aeroControlesBinding: ActivityAeroControlesBinding
     lateinit var BT: FedeBT
 
     var estadoConexion = FedeBT.Conexion.False
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        aeroControlesBinding = ActivityAeroControlesBinding.inflate(layoutInflater)
-        val mivista = aeroControlesBinding.root
+        //aeroControlesBinding = ActivityAeroControlesBinding.inflate(layoutInflater)
+        //val mivista = aeroControlesBinding.root
+        val mivista = VistaCockpit(this)
         setContentView(mivista)
 
         dirBT = intent.getStringExtra("dirBT").toString()
@@ -35,7 +43,7 @@ class AeroControles : AppCompatActivity() {
                         estadoConexion = state
                     }
                     FedeBT.Conexion.Pending -> {
-                        Toast.makeText(applicationContext, "Pending", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "Pendiente", Toast.LENGTH_SHORT).show()
                         estadoConexion = state
                         rxReceived()
                     }
@@ -52,10 +60,11 @@ class AeroControles : AppCompatActivity() {
             }
         })
 
+/*
         aeroControlesBinding.btnSend.setOnClickListener {
             BT.bluTx(aeroControlesBinding.edtSend.text.toString())
         }
-
+*/
     }
     /**
      * Se llama al siguiente método cuando cambia el foco de la ventana.
@@ -71,9 +80,11 @@ class AeroControles : AppCompatActivity() {
     private fun rxReceived() {
         BT.loadDateRx(object:FedeBT.ReceivedData{
             override fun rxDate(rx: String) {
-                var datoRx = aeroControlesBinding.txtConsola.text.toString() + rx
-                    aeroControlesBinding.txtConsola.text = datoRx
+//                var datoRx = aeroControlesBinding.txtConsola.text.toString() + rx
+//                    aeroControlesBinding.txtConsola.text = datoRx
             }
         })
     }
+    /* al final de la activity */
+
 }
