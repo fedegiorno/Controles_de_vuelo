@@ -192,7 +192,7 @@ class FedeBT(val context: Context) {
 
     private var mreceivedDate: ReceivedData? = null
 
-    fun loadDateRx(date: ReceivedData) {
+    fun loadDataRx(date: ReceivedData) {
         this.mreceivedDate = date
     }
 
